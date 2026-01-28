@@ -1,4 +1,4 @@
-import pyautogui, time
+import pyautogui, mss
 
 COLUMNS = [542, 574, 605, 637, 668, 700, 731, 763, 794, 826]
 ROWS = [
@@ -25,20 +25,7 @@ ROWS = [
 
 # 31/32 horizontal
 # 31/32 vertical
-board: list[list[bool]] = [[False for _ in range(10)] for _ in range(20)]
 
-while True:
-    board = [[False for _ in range(10)] for _ in range(20)]
+screen = mss.mss()
 
-    screen = pyautogui.screenshot()
-
-    for i, x in enumerate(COLUMNS):
-        for j, y in enumerate(ROWS):
-            rgb = screen.getpixel((x, y))
-
-            if rgb != (0, 0, 0, 255):
-                print(rgb)
-                board[j][i] = True
-
-    for row in board:
-        print(row)
+board_area = {"top": 122, "left": 542, "width": 283, "height": 598}
