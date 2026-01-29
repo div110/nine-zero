@@ -48,7 +48,6 @@ def get_state(debug=False):
         )
         image.save("area.png")
 
-    print(1)
     return board
 
 
