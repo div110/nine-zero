@@ -36,29 +36,46 @@ tile_area = {"top": 100, "left": 668, "width": 1, "height": 1}
 
 board = [[0 for _ in range(10)] for _ in range(20)]
 
-rgb_2_tile: dict[tuple[int, int, int], str] = {
-    (255, 157, 95): "L",
-    (176, 212, 118): "S",
-    # green (194,255,95)???
-    (236, 111, 223): "T",
-    (255, 226, 95): "O",
-    (94, 255, 197): "I",
-    (132, 111, 236): "J",
-    (255, 97, 105): "Z",
-}
 
 rgbs = {
-    (255, 157, 95),
-    (176, 212, 118),
-    (236, 111, 223),
-    (255, 226, 95),
-    (94, 255, 197),
-    (132, 111, 236),
-    (255, 97, 105),
+    (255, 157, 95),  # L(249, 136, 68)
+    (176, 212, 118),  # S 178, 246, 67
+    (236, 111, 223),  # T
+    (255, 226, 95),  # O
+    (94, 255, 197),  # I
+    (132, 111, 236),  # J(109, 84, 224)
+    (255, 97, 105),  # Z
 }
 
 
-def get_state(debug=False):
+def get_tile(rgb: tuple[int, int, int]) -> str:
+    r, g, b = rgb
+
+    if r > 200 and b > 200:
+        return "T"
+
+    elif r > 200 and g > 200:
+        return "O"
+
+    elif r > 100 and g > 50 and b > 200:
+        return "J"
+
+    elif r > 200 and g > 127:
+        return "L"
+
+    elif r > 150 and g > 200:
+        return "S"
+
+    elif g > 200:
+        return "I"
+
+    elif r > 200 and g < 140 and b < 140:
+        return "Z"
+
+    return ""
+
+
+def get_state(debug=True):
     # raw pixels
     board_image = screen.grab(board_area)
 
@@ -68,9 +85,11 @@ def get_state(debug=False):
 
     tile_image = screen.grab(tile_area)
     pixel = tile_image.pixel(0, 0)
-    tetromino = ""
-    if pixel in rgbs:
-        tetromino = rgb_2_tile[pixel]
+
+    print(pixel)
+    tetromino = get_tile(pixel)
+    print(tetromino)
+    print(10 * "-")
 
     if debug:
         image = Image.frombytes("RGB", tile_image.size, tile_image.bgra, "raw", "BGRX")
