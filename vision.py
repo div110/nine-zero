@@ -89,7 +89,6 @@ def get_state(debug=True):
     print(pixel)
     tetromino = get_tile(pixel)
     print(tetromino)
-    print(10 * "-")
 
     if debug:
         image = Image.frombytes("RGB", tile_image.size, tile_image.bgra, "raw", "BGRX")

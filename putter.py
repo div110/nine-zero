@@ -14,7 +14,7 @@ def rotate(rotation: int) -> None:
 
 
 def slide(index_l: int) -> None:
-    pyautogui.write("jjjj")
+    pyautogui.write("jjjjjj")
 
     pyautogui.write(index_l * "l")
     pyautogui.write("i")
@@ -23,6 +23,8 @@ def slide(index_l: int) -> None:
 
 
 def place(index_l: int, rotation: int) -> None:
+    print("at: ", index_l, "rotated: ", rotation)
+    print(10 * "-")
     rotate(rotation)
     slide(index_l)
     return
